@@ -155,7 +155,7 @@ function Index() {
           />
         </Card>
 
-        <Card className="surface-card mt-3 gap-3 border-0 p-4">
+        <Card className="surface-card mt-3 flex flex-col gap-4 border-0 p-4">
           <ToggleRow
             label="We water a garden"
             checked={household.hasGarden}
@@ -258,7 +258,7 @@ function Index() {
         <SectionTitle icon={<ShieldAlert className="h-4 w-4" />} text="What could tighten supply" />
         <div className="mt-3 space-y-2">
           {RISK_OUTLOOK.map((r) => (
-            <Card key={r.title} className="surface-card gap-2 border-0 p-4">
+            <Card key={r.title} className="surface-card flex flex-col gap-2 border-0 p-4">
               <div className="flex items-start justify-between gap-3">
                 <span className="text-sm font-medium">{r.title}</span>
                 <SeverityPill severity={r.severity} />
