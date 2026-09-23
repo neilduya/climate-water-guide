@@ -173,7 +173,7 @@ function Index() {
                 max={100}
                 step={1}
                 value={[household.gardenSize]}
-                onValueChange={([v]) => setHousehold((h) => ({ ...h, gardenSize: v }))}
+                onValueChange={(v) => setHousehold((h) => ({ ...h, gardenSize: v[0] ?? 1 }))}
               />
             </div>
           )}
