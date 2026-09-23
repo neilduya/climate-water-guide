@@ -149,6 +149,37 @@
 
   body {
     background-color: var(--color-background);
+    background-image:
+      radial-gradient(60% 45% at 50% 0%, oklch(0.32 0.09 210 / 0.55), transparent 70%),
+      radial-gradient(50% 40% at 100% 100%, oklch(0.3 0.08 165 / 0.35), transparent 70%);
+    background-attachment: fixed;
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility surface-card {
+  background: var(--gradient-deep);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-float);
+}
+
+@utility text-aqua {
+  background: var(--gradient-aqua);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-aqua {
+  background: var(--gradient-aqua);
 }
