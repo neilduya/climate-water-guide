@@ -34,7 +34,7 @@ import {
   type ScarcityLevel,
 } from "@/lib/water";
 
-const TITLE = "AquaReady — Family Water Saving Plan";
+const TITLE = "WAVE — Water Adaptation & Vulnerability Engine";
 const DESC =
   "Work out how much water your household should save for drinking, bathing, laundry and more, and see what could tighten supply next.";
 
@@ -79,15 +79,16 @@ function Index() {
     setHousehold((h) => ({ ...h, [key]: Math.max(0, Math.min(10, h[key] + delta)) }));
 
   return (
-    <main className="mx-auto w-full max-w-2xl px-5 pb-20 pt-10">
+    <main className="mx-auto w-full max-w-2xl px-4 pb-16 pt-8 sm:px-6 sm:pt-12">
       <header className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-aqua shadow-[var(--shadow-float)]">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-aqua shadow-[var(--shadow-float)]">
           <Droplets className="h-7 w-7 text-primary-foreground" />
         </div>
-        <h1 className="text-3xl font-semibold">
-          Aqua<span className="text-aqua">Ready</span>
-        </h1>
-        <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">
+        <h1 className="text-4xl font-semibold text-primary">WAVE</h1>
+        <p className="mt-1 text-xs font-medium text-accent-foreground">
+          Water Adaptation &amp; Vulnerability Engine
+        </p>
+        <p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
           A saving plan for your household, use by use, so you are ready when the dry
           spell hits.
         </p>
@@ -98,20 +99,23 @@ function Index() {
         <SectionTitle icon={<Waves className="h-4 w-4" />} text="Current situation" />
         <div className="mt-3 grid grid-cols-2 gap-2">
           {(Object.keys(SCARCITY) as ScarcityLevel[]).map((key) => (
-            <button
+            <Button
               key={key}
               onClick={() => setLevel(key)}
-              className={`rounded-xl border px-3 py-3 text-left transition-colors ${
+              variant="outline"
+              className={`h-auto justify-start rounded-lg px-3 py-3 text-left shadow-none ${
                 level === key
-                  ? "border-primary bg-primary/15 text-foreground"
-                  : "border-border bg-card/60 text-muted-foreground hover:border-primary/50"
+                  ? "border-primary bg-secondary text-foreground"
+                  : "border-border bg-card text-muted-foreground hover:border-primary/50 hover:bg-secondary/60"
               }`}
             >
-              <span className="block text-sm font-medium">{SCARCITY[key].label}</span>
-              <span className="block text-xs opacity-80">
-                save {Math.round(SCARCITY[key].target * 100)}%
+              <span>
+                <span className="block text-sm font-medium">{SCARCITY[key].label}</span>
+                <span className="block text-xs opacity-80">
+                  save {Math.round(SCARCITY[key].target * 100)}%
+                </span>
               </span>
-            </button>
+            </Button>
           ))}
         </div>
         <p className="mt-2 text-xs text-muted-foreground">{SCARCITY[level].blurb}</p>
@@ -187,19 +191,19 @@ function Index() {
 
       {/* Summary */}
       <section className="mt-8">
-        <Card className="surface-card border-0 p-5">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">
+        <Card className="summary-card border-0 p-5 sm:p-6">
+          <p className="text-xs uppercase text-primary-foreground/80">
             Daily target for {result.people || 0} {result.people === 1 ? "person" : "people"}
           </p>
           <div className="mt-1 flex items-end gap-2">
-            <span className="text-4xl font-semibold text-aqua">{litres(result.target)}</span>
-            <span className="pb-1 text-sm text-muted-foreground">per day</span>
+            <span className="text-4xl font-semibold">{litres(result.target)}</span>
+            <span className="pb-1 text-sm text-primary-foreground/80">per day</span>
           </div>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 text-sm text-primary-foreground/80">
             Down from {litres(result.baseline)} — save {litres(result.saved)} a day (
             {Math.round(result.savedPercent)}%), about {litres(result.saved * 30)} a month.
           </p>
-          <Progress className="mt-4 h-2" value={Math.min(100, result.savedPercent * 2)} />
+          <Progress className="mt-4 h-2 bg-primary-foreground/25" value={Math.min(100, result.savedPercent * 2)} />
           <div className="mt-4 grid grid-cols-2 gap-3">
             <Stat label="Per person / day" value={litres(result.perPerson)} />
             <Stat label="3-day emergency store" value={litres(result.emergencyReserve)} />
@@ -227,7 +231,7 @@ function Index() {
                         {litres(b.target)}
                       </span>
                     </div>
-                    <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
+                     <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
                       <div className="h-full bg-aqua" style={{ width: `${share}%` }} />
                     </div>
                     <span className="mt-1.5 block text-xs text-muted-foreground">
@@ -288,7 +292,7 @@ function SectionTitle({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
     <div className="flex items-center gap-2 text-sm font-medium text-primary">
       {icon}
-      <span className="uppercase tracking-widest text-xs">{text}</span>
+      <span className="text-xs uppercase">{text}</span>
     </div>
   );
 }
@@ -354,8 +358,8 @@ function ToggleRow({
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl bg-secondary/60 px-3 py-2.5">
-      <span className="block text-xs text-muted-foreground">{label}</span>
+    <div className="rounded-lg bg-primary-foreground/15 px-3 py-2.5">
+      <span className="block text-xs text-primary-foreground/75">{label}</span>
       <span className="block text-base font-medium">{value}</span>
     </div>
   );
